@@ -164,7 +164,7 @@ function loadClinics() {
     city: 'جرجا - سوهاج',
     phone: '01281440083',
     whatsapp: '201281440083',
-    hours: 'السبت – الخميس: ١٠ص – ١٠م'
+    hours: 'طوال أيام الأسبوع (شامل الجمعة): ١٠ص – ١٠م'
   };
 
   // Extra clinics from dashboard (localStorage)
