@@ -2,4 +2,4 @@ User-agent: *
 Allow: /
 Disallow: /dashboard.html
 
-Sitemap: https://dr-marina-mikhail.com/sitemap.xml
+Sitemap: https://dr-marina-mikhail.vercel.app/sitemap.xml
