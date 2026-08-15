@@ -1,0 +1,8 @@
+{
+  "version": 2,
+  "name": "dr-marina-mikhail",
+  "public": false,
+  "builds": [
+    { "src": "**/*", "use": "@vercel/static" }
+  ]
+}
