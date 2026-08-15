@@ -546,19 +546,93 @@ body {
 
 /* ── RESPONSIVE ── */
 @media (max-width: 768px) {
+  .dashboard {
+    flex-direction: column;
+  }
+
   .sidebar {
     width: 100%;
     height: auto;
     position: static;
+    flex-direction: column;
+    padding: 16px;
+    gap: 12px;
+  }
+
+  .sidebar-brand {
+    padding-bottom: 12px;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+  }
+
+  .sidebar-nav {
     flex-direction: row;
     flex-wrap: wrap;
-    padding: 16px;
-    gap: 4px;
+    gap: 8px;
   }
-  .sidebar-brand { padding-bottom: 16px; flex-basis: 100%; }
-  .sidebar-nav { flex-direction: row; flex: auto; }
-  .sidebar-footer { flex-direction: row; border-top: none; border-right: 1px solid rgba(255,255,255,0.1); padding-top: 0; padding-right: 16px; margin-right: auto; }
 
-  .dash-main { margin-right: 0; padding: 20px 16px; }
-  .form-row { grid-template-columns: 1fr; }
+  .sidebar-link {
+    padding: 10px 14px;
+    font-size: 0.88rem;
+    border-radius: var(--radius-sm);
+  }
+
+  .sidebar-footer {
+    flex-direction: row;
+    justify-content: space-between;
+    border-top: 1px solid rgba(255,255,255,0.1);
+    padding-top: 12px;
+    margin-top: 8px;
+  }
+
+  .dash-main {
+    margin-right: 0;
+    padding: 16px 14px;
+  }
+
+  .dash-header {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+
+  .btn-add {
+    width: 100%;
+    justify-content: center;
+    padding: 12px;
+  }
+
+  .dash-card {
+    padding: 18px 14px;
+  }
+
+  .dash-card-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .dash-card-actions {
+    width: 100%;
+    justify-content: flex-end;
+  }
+
+  .form-row {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+
+  .modal-footer {
+    flex-direction: column-reverse;
+    gap: 8px;
+  }
+
+  .modal-footer button {
+    width: 100%;
+  }
+
+  .login-card {
+    padding: 32px 20px;
+  }
 }
+
