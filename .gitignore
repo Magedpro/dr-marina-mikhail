@@ -1,0 +1,11 @@
+# Ignore system files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Ignore editor folders
+.vscode/
+.idea/
+
+# No node_modules (static site)
+node_modules/

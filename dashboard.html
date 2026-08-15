@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>لوحة التحكم | د. مارينا ميخائيل</title>
+  <meta name="robots" content="noindex, nofollow" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="stylesheet" href="css/dashboard.css" />
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚙️</text></svg>" />
+</head>
+<body>
+
+  <!-- LOGIN SCREEN -->
+  <div class="login-screen" id="login-screen">
+    <div class="login-card" id="login-card">
+      <div class="login-icon">🦷</div>
+      <h1>لوحة التحكم</h1>
+      <p>د. مارينا ميخائيل - إدارة العيادات</p>
+      <div class="login-form" id="login-form">
+        <div class="input-group">
+          <label for="pin-input">رمز الدخول (PIN)</label>
+          <input type="password" id="pin-input" placeholder="أدخل الرمز" maxlength="6" autocomplete="current-password" />
+        </div>
+        <button class="btn-login" id="btn-login" onclick="attemptLogin()">
+          <i class="fas fa-sign-in-alt"></i> دخول
+        </button>
+        <p class="login-hint" id="login-hint"></p>
+      </div>
+    </div>
+  </div>
+
+  <!-- DASHBOARD -->
+  <div class="dashboard" id="dashboard" style="display:none;">
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar" aria-label="القائمة الجانبية">
+      <div class="sidebar-brand">
+        <span>🦷</span>
+        <div>
+          <div class="sidebar-name">د. مارينا ميخائيل</div>
+          <div class="sidebar-sub">لوحة التحكم</div>
+        </div>
+      </div>
+      <nav class="sidebar-nav" aria-label="التنقل">
+        <a href="#" class="sidebar-link active" id="nav-clinics-tab" onclick="showTab('clinics', this)">
+          <i class="fas fa-clinic-medical"></i> العيادات
+        </a>
+        <a href="#" class="sidebar-link" id="nav-social-tab" onclick="showTab('social', this)">
+          <i class="fas fa-share-alt"></i> السوشيال ميديا والخرائط
+        </a>
+        <a href="#" class="sidebar-link" id="nav-info-tab" onclick="showTab('info', this)">
+          <i class="fas fa-info-circle"></i> معلومات الموقع
+        </a>
+      </nav>
+      <div class="sidebar-footer">
+        <a href="index.html" class="sidebar-link" id="sidebar-home-link" target="_blank" rel="noopener">
+          <i class="fas fa-external-link-alt"></i> عرض الموقع
+        </a>
+        <button class="sidebar-link" id="sidebar-logout" onclick="logout()" style="width:100%;text-align:right;background:none;border:none;cursor:pointer;">
+          <i class="fas fa-sign-out-alt"></i> خروج
+        </button>
+      </div>
+    </aside>
+
+    <!-- Main content -->
+    <main class="dash-main" role="main">
+      <header class="dash-header">
+        <h2 id="dash-page-title">إدارة العيادات</h2>
+        <button class="btn-add" id="btn-add-clinic" onclick="openModal()">
+          <i class="fas fa-plus"></i> إضافة عيادة
+        </button>
+      </header>
+
+      <!-- Clinics Tab -->
+      <div class="tab-content" id="tab-clinics">
+        <div class="dash-card" id="default-clinic-card">
+          <div class="dash-card-header">
+            <div>
+              <div class="dash-card-tag">عيادة افتراضية (ثابتة)</div>
+              <h3>عيادة جرجا الرئيسية</h3>
+            </div>
+            <span class="badge-default">لا يمكن حذفها</span>
+          </div>
+          <div class="dash-card-body">
+            <div class="info-row"><i class="fas fa-map-marker-alt"></i> جرجا، شارع المحطة، أعلى برج كشري البهيجي، الدور السادس</div>
+            <div class="info-row"><i class="fas fa-phone-alt"></i> 01281440083</div>
+            <div class="info-row"><i class="fab fa-whatsapp"></i> 01281440083</div>
+          </div>
+        </div>
+
+        <div class="clinics-list" id="clinics-list" aria-label="قائمة العيادات المضافة">
+          <!-- Dynamic cards -->
+        </div>
+
+        <div class="empty-state" id="empty-state" style="display:none;">
+          <div class="empty-icon">🏥</div>
+          <p>لا توجد عيادات مضافة بعد</p>
+          <button class="btn-add" onclick="openModal()"><i class="fas fa-plus"></i> أضف عيادة جديدة</button>
+        </div>
+      </div>
+
+      <!-- Social & Maps Tab -->
+      <div class="tab-content" id="tab-social" style="display:none;">
+        <div class="dash-card">
+          <div class="dash-card-header">
+            <div>
+              <div class="dash-card-tag">الربط والتواصل</div>
+              <h3>إعدادات روابط السوشيال ميديا وجوجل ماب</h3>
+            </div>
+          </div>
+          <form id="social-settings-form" onsubmit="saveSiteSettings(event)">
+            <div class="form-row">
+              <div class="form-group">
+                <label for="setting-fb"><i class="fab fa-facebook-f" style="color:#1877f2"></i> رابط صفحة الفيسبوك</label>
+                <input type="url" id="setting-fb" placeholder="https://facebook.com/yourpage" />
+              </div>
+              <div class="form-group">
+                <label for="setting-ig"><i class="fab fa-instagram" style="color:#e4405f"></i> رابط حساب الانستجرام</label>
+                <input type="url" id="setting-ig" placeholder="https://instagram.com/yourprofile" />
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="setting-tt"><i class="fab fa-tiktok" style="color:#000"></i> رابط حساب تيك توك</label>
+                <input type="url" id="setting-tt" placeholder="https://tiktok.com/@yourprofile" />
+              </div>
+              <div class="form-group">
+                <label for="setting-yt"><i class="fab fa-youtube" style="color:#ff0000"></i> رابط قناة اليوتيوب</label>
+                <input type="url" id="setting-yt" placeholder="https://youtube.com/@yourchannel" />
+              </div>
+            </div>
+            <hr style="margin:20px 0; border:0; border-top:1px solid #e2e8f0;" />
+            <div class="form-group">
+              <label for="setting-maps-embed"><i class="fas fa-map-marked-alt" style="color:var(--primary)"></i> رابط تضمين خريطة جوجل ماب (Google Maps Embed URL أو كود iframe)</label>
+              <textarea id="setting-maps-embed" rows="3" style="width:100%; padding:12px; border:2px solid #e2e8f0; border-radius:10px; font-family:'Cairo'; font-size:0.9rem;" placeholder="ضع هنا رابط الـ iframe من Google Maps (مثال: https://www.google.com/maps/embed?...)"></textarea>
+              <small style="color:var(--text-light); margin-top:4px;">يمكنك نسخ رابط التضمين من Google Maps -> مشاركة -> تضمين خريطة، أو وضع رابط الموقع مباشرة.</small>
+            </div>
+            <div class="form-group">
+              <label for="setting-maps-directions"><i class="fas fa-directions" style="color:var(--primary)"></i> رابط الاتجاهات المباشر على Google Maps</label>
+              <input type="url" id="setting-maps-directions" placeholder="https://maps.google.com/?q=جرجا+شارع+المحطة" />
+            </div>
+            <div style="display:flex; justify-content:flex-end; margin-top:20px;">
+              <button type="submit" class="btn-save" id="btn-save-settings">
+                <i class="fas fa-save"></i> حفظ الإعدادات
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <!-- Info Tab -->
+      <div class="tab-content" id="tab-info" style="display:none;">
+        <div class="info-card" id="site-info-card">
+          <h3><i class="fas fa-info-circle"></i> معلومات الموقع</h3>
+          <table class="info-table">
+            <tr><td>اسم الدكتورة</td><td>د. مارينا ميخائيل</td></tr>
+            <tr><td>التخصص</td><td>طب وجراحة الأسنان</td></tr>
+            <tr><td>العيادة الرئيسية</td><td>جرجا، شارع المحطة، الدور السادس</td></tr>
+            <tr><td>رقم التليفون</td><td>01281440083</td></tr>
+            <tr><td>واتساب</td><td>01281440083</td></tr>
+            <tr><td>المحافظة</td><td>سوهاج</td></tr>
+          </table>
+          <div class="seo-tips">
+            <h4><i class="fas fa-search"></i> نصائح SEO</h4>
+            <ul>
+              <li>✅ تم إضافة Schema.org لطبيبة الأسنان</li>
+              <li>✅ تم إضافة الكلمات المفتاحية المهمة</li>
+              <li>✅ عنوان الصفحة محسّن لـ Google</li>
+              <li>✅ sitemap.xml جاهز</li>
+              <li>💡 أضف الموقع لـ Google Business Profile لنتائج أفضل</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- ADD/EDIT MODAL -->
+  <div class="modal-overlay" id="modal-overlay" style="display:none;" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+    <div class="modal" id="modal">
+      <div class="modal-header">
+        <h3 id="modal-title">إضافة عيادة جديدة</h3>
+        <button class="modal-close" id="modal-close-btn" onclick="closeModal()" aria-label="إغلاق">✕</button>
+      </div>
+      <div class="modal-body">
+        <form id="clinic-form" onsubmit="saveClinic(event)">
+          <input type="hidden" id="clinic-id" />
+          <div class="form-row">
+            <div class="form-group">
+              <label for="field-name">اسم العيادة *</label>
+              <input type="text" id="field-name" placeholder="مثال: عيادة سوهاج" required />
+            </div>
+            <div class="form-group">
+              <label for="field-city">المدينة</label>
+              <input type="text" id="field-city" placeholder="مثال: سوهاج" />
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="field-address">العنوان الكامل *</label>
+            <input type="text" id="field-address" placeholder="مثال: شارع الجمهورية، أمام المستشفى" required />
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="field-phone">رقم الهاتف *</label>
+              <input type="tel" id="field-phone" placeholder="01XXXXXXXXX" required pattern="[0-9]{11}" />
+            </div>
+            <div class="form-group">
+              <label for="field-whatsapp">رقم واتساب (بدون +)</label>
+              <input type="tel" id="field-whatsapp" placeholder="201XXXXXXXXX" />
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="field-hours">أوقات العمل</label>
+            <input type="text" id="field-hours" placeholder="مثال: السبت – الخميس: ١٠ص – ٩م" />
+          </div>
+          <div class="form-actions">
+            <button type="submit" class="btn-save" id="btn-save-clinic"><i class="fas fa-save"></i> حفظ</button>
+            <button type="button" class="btn-cancel" id="btn-cancel-modal" onclick="closeModal()">إلغاء</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/dashboard.js"></script>
+</body>
+</html>
