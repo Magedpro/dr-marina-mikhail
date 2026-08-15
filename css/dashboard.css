@@ -87,13 +87,14 @@ body {
 
 .input-group input {
   width: 100%;
-  padding: 13px 16px;
+  padding: 13px 45px 13px 16px;
   border: 2px solid var(--border);
   border-radius: var(--radius);
   font-family: 'Cairo', sans-serif;
-  font-size: 1.1rem;
-  letter-spacing: 6px;
-  text-align: center;
+  font-size: 1rem;
+  letter-spacing: 1px;
+  text-align: right;
+  direction: ltr;
   transition: var(--transition);
   background: var(--off-white);
   color: var(--text-dark);

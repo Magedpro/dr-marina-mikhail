@@ -23,6 +23,18 @@ function attemptLogin() {
   }
 }
 
+function togglePasswordVisibility() {
+  const input = document.getElementById('pin-input');
+  const icon = document.getElementById('pwd-eye-icon');
+  if (input.type === 'password') {
+    input.type = 'text';
+    icon.className = 'fas fa-eye-slash';
+  } else {
+    input.type = 'password';
+    icon.className = 'fas fa-eye';
+  }
+}
+
 function logout() {
   sessionStorage.removeItem('dm_auth');
   location.reload();
