@@ -3,7 +3,7 @@
 //  PIN: 1234 (قابل للتغيير هنا)
 // ============================================
 
-const CORRECT_PIN = 'Marina@2025';
+const CORRECT_PIN = '128144';
 const STORAGE_KEY  = 'dr_marina_clinics';
 
 /* ── Auth ── */

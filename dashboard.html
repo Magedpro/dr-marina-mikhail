@@ -21,13 +21,8 @@
       <p>د. مارينا ميخائيل - إدارة العيادات</p>
       <div class="login-form" id="login-form">
         <div class="input-group">
-          <label for="pin-input">كلمة المرور (Password)</label>
-          <div style="position:relative;">
-            <input type="password" id="pin-input" placeholder="أدخل كلمة المرور" maxlength="50" autocomplete="current-password" style="padding-left:40px;" />
-            <button type="button" id="toggle-pwd-btn" onclick="togglePasswordVisibility()" aria-label="إظهار كلمة المرور" style="position:absolute; left:12px; top:50%; transform:translateY(-50%); background:none; border:none; color:var(--text-light); cursor:pointer; font-size:1.1rem;">
-              <i class="fas fa-eye" id="pwd-eye-icon"></i>
-            </button>
-          </div>
+          <label for="pin-input">رمز الدخول (PIN)</label>
+          <input type="password" id="pin-input" placeholder="● ● ● ● ● ●" maxlength="6" autocomplete="current-password" inputmode="numeric" pattern="[0-9]*" />
         </div>
         <button class="btn-login" id="btn-login" onclick="attemptLogin()">
           <i class="fas fa-sign-in-alt"></i> دخول
