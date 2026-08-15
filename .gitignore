@@ -9,3 +9,5 @@ desktop.ini
 
 # No node_modules (static site)
 node_modules/
+
+.vercel
